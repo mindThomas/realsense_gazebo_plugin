@@ -156,6 +156,15 @@ namespace
     info_msg.P[6] = info_msg.K[5];
     info_msg.P[10] = info_msg.K[8];
 
+    // For "plumb_bob", the 5 parameters are: (k1, k2, t1, t2, k3).
+    info_msg.distortion_model = "plumb_bob";
+    info_msg.D.resize(5);
+    info_msg.D[0] = 0.0;
+    info_msg.D[1] = 0.0;
+    info_msg.D[2] = 0.0;
+    info_msg.D[3] = 0.0;
+    info_msg.D[4] = 0.0; // by setting all parameters to zero we indicate a non-distorted image    (notice in URDF, "realsense-RS200.macro.xacro", that the camera distortion parameters are also disabled)
+
     return info_msg;
   }
 }
