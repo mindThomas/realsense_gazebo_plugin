@@ -21,6 +21,10 @@ catkin_package(
     DEPENDS
         roscpp
         gazebo_ros
+        image_transport
+        camera_info_manager
+        sensor_msgs
+        cv_bridge
 )
 
 include_directories(
@@ -53,4 +57,9 @@ install(
         ${PROJECT_NAME}
     DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
     LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+)
+
+install(
+    DIRECTORY launch models urdf worlds
+    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
