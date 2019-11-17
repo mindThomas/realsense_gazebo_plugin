@@ -18,7 +18,8 @@ find_package(Threads REQUIRED)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GAZEBO_CXX_FLAGS}")
 
 catkin_package(
-    DEPENDS
+    LIBRARIES ${PROJECT_NAME}
+    CATKIN_DEPENDS
         roscpp
         gazebo_ros
         image_transport
