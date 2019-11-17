@@ -13,7 +13,7 @@
 <xacro:macro name="realsense-rs200" params="prefix parent *origin">
 
     <!-- Camera link -->
-    <link name="${prefix}rs200_camera">
+    <link name="${prefix}_camera">
         <visual>
             <origin rpy="0 0 0" xyz="0 0 0"/>
             <geometry>
@@ -39,42 +39,42 @@
     </link>
 
     <!-- Connect camera to parent frame-->
-    <joint name="${prefix}realsense_joint" type="fixed">
+    <joint name="${prefix}_joint" type="fixed">
         <parent link="${parent}"/>
-        <child link="${prefix}rs200_camera"/>
+        <child link="${prefix}_camera"/>
         <xacro:insert_block name="origin"/>
     </joint>
 
     <!-- Virtual links representing the cameras positons and orientations-->
-    <link name="${prefix}color" />
-    <link name="${prefix}depth" />
-    <link name="${prefix}ired1" />
-    <link name="${prefix}ired2" />
+    <link name="${prefix}_color" />
+    <link name="${prefix}_depth" />
+    <link name="${prefix}_ired1" />
+    <link name="${prefix}_ired2" />
 
     <!-- Joints positioning the virtual links with respect to the camera main link-->
-    <joint name="${prefix}color_joint" type="fixed">
-        <parent link="${prefix}rs200_camera" />
-        <child link="${prefix}color" />
+    <joint name="${prefix}_color_joint" type="fixed">
+        <parent link="${prefix}_camera" />
+        <child link="${prefix}_color" />
         <!-- <origin xyz="0 -0.046 0.004" rpy="0 0 0"/> -->
         <!-- The default position is change since in Rviz the cloud depth axis is Z not X-->
         <origin xyz="0 -0.046 0.004" rpy="${pi/2} ${pi} ${pi/2}"/>
     </joint>
 
-    <joint name="${prefix}depth_joint" type="fixed">
-        <parent link="${prefix}rs200_camera" />
-        <child link="${prefix}depth" />
+    <joint name="${prefix}_depth_joint" type="fixed">
+        <parent link="${prefix}_camera" />
+        <child link="${prefix}_depth" />
         <origin xyz="0 -0.03 0.004" rpy="0 0 0"/>
     </joint>
 
-    <joint name="${prefix}ired1_joint" type="fixed">
-        <parent link="${prefix}rs200_camera" />
-        <child link="${prefix}ired1" />
+    <joint name="${prefix}_ired1_joint" type="fixed">
+        <parent link="${prefix}_camera" />
+        <child link="${prefix}_ired1" />
         <origin xyz="0 -0.06 0.004" rpy="0 0 0"/>
     </joint>
 
-    <joint name="${prefix}ired2_joint" type="fixed">
-        <parent link="${prefix}rs200_camera" />
-        <child link="${prefix}ired2" />
+    <joint name="${prefix}_ired2_joint" type="fixed">
+        <parent link="${prefix}_camera" />
+        <child link="${prefix}_ired2" />
         <origin xyz="0 0.01 0.004" rpy="0 0 0"/>
     </joint>
 
@@ -83,12 +83,12 @@
 
     <!-- Load plugin to the model ("robot" in urdf format)-->
     <gazebo>
-        <plugin name="${prefix}r200" filename="librealsense_gazebo_plugin.so"/>
+        <plugin name="${prefix}" filename="librealsense_gazebo_plugin.so"/>
         <!--<pose frame="">0 0 0.015 0 0 0</pose>-->
     </gazebo>
 
     <!-- Load parameters to model's main link-->
-    <gazebo reference="${prefix}rs200_camera">
+    <gazebo reference="${prefix}_camera">
         <self_collide>0</self_collide>
         <enable_wind>0</enable_wind>
         <kinematic>0</kinematic>
@@ -105,7 +105,7 @@
 
         <sensor name="color" type="camera">
             <pose frame="">0 -0.046 0.004 0 0 0</pose>
-            <camera name="${prefix}rs200_camera">
+            <camera name="${prefix}_camera">
             <horizontal_fov>1.047</horizontal_fov>
             <image>
                 <width>640</width>
@@ -132,11 +132,11 @@
             </camera>
             <always_on>1</always_on>
             <update_rate>60</update_rate>
-            <visualize>1</visualize>
+            <visualize>0</visualize>
         </sensor>
         <sensor name="ired1" type="camera">
             <pose frame="">0 -0.06 0.004 0 0 0</pose>
-            <camera name="${prefix}rs200_camera">
+            <camera name="${prefix}_camera">
             <horizontal_fov>1.047</horizontal_fov>
             <image>
                 <width>640</width>
@@ -167,7 +167,7 @@
         </sensor>
         <sensor name="ired2" type="camera">
             <pose frame="">0 0.01 0.004 0 0 0</pose>
-            <camera name="${prefix}rs200_camera">
+            <camera name="${prefix}_camera">
             <horizontal_fov>1.047</horizontal_fov>
             <image>
                 <width>640</width>
@@ -190,7 +190,7 @@
         </sensor>
         <sensor name="depth" type="depth">
             <pose frame="">0 -0.03 0.004 0 0 0</pose>
-            <camera name="${prefix}rs200_camera">
+            <camera name="${prefix}_camera">
             <horizontal_fov>1.047</horizontal_fov>
             <image>
                     <width>640</width>
