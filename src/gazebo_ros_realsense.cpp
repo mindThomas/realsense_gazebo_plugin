@@ -51,7 +51,11 @@ void GazeboRosRealsense::Load(physics::ModelPtr _model, sdf::ElementPtr _sdf)
 void GazeboRosRealsense::OnNewFrame(const rendering::CameraPtr cam,
                                     const transport::PublisherPtr pub)
 {
+#if GAZEBO_MAJOR_VERSION >= 9
+  common::Time current_time = this->world->SimTime();
+#else
   common::Time current_time = this->world->GetSimTime();
+#endif
 
   // identify camera
   std::string camera_id = extractCameraName(cam->Name());
@@ -63,7 +67,7 @@ void GazeboRosRealsense::OnNewFrame(const rendering::CameraPtr cam,
   const auto image_pub = camera_publishers.at(camera_id);
 
   // copy data into image
-  this->image_msg_.header.frame_id = camera_id;
+  this->image_msg_.header.frame_id = prefix+camera_id;
   this->image_msg_.header.stamp.sec = current_time.sec;
   this->image_msg_.header.stamp.nsec = current_time.nsec;
 
@@ -96,12 +100,16 @@ void GazeboRosRealsense::OnNewFrame(const rendering::CameraPtr cam,
 void GazeboRosRealsense::OnNewDepthFrame()
 {
   // get current time
+#if GAZEBO_MAJOR_VERSION >= 9
+  common::Time current_time = this->world->SimTime();
+#else
   common::Time current_time = this->world->GetSimTime();
+#endif
 
   RealSensePlugin::OnNewDepthFrame();
 
   // copy data into image
-  this->depth_msg_.header.frame_id = COLOR_CAMERA_NAME;
+  this->depth_msg_.header.frame_id = prefix+COLOR_CAMERA_NAME;
   this->depth_msg_.header.stamp.sec = current_time.sec;
   this->depth_msg_.header.stamp.nsec = current_time.nsec;
 

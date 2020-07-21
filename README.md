@@ -1,14 +1,7 @@
 # Modified realsense plugin for Gazebo 7 and ROS Kinetic
 This plugin is a Gazebo 7 plugin for the Intel RealSense RS200 RGBD camera.
 
-The Gazebo part of the plugin was originally developed by Intel at: https://github.com/intel/gazebo-realsense
-
-A ROS wrapper was made by SyrianSpock at: https://github.com/SyrianSpock/realsense_gazebo_plugin
-
-This repository is a fork of this ROS wrapped project enabling support for Gazebo 7 and ROS Kinetic while still keeping the latest updates
-
-
-# Intel RealSense Gazebo ROS plugin and model
+Simulation of the Realsense R200 sensor in Gazebo.
 
 ## Quickstart
 
